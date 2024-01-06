@@ -37,6 +37,7 @@ print(f"SRC: {calculate_md5(source)} - REPLICA: {calculate_md5(replica)}")
 with os.scandir(source) as items:
     for item in items:
         file_name = item.name
+        # rename these variables
         source_path = os.path.join(source, file_name)
         replica_path = os.path.join(replica, file_name)
 
@@ -65,9 +66,24 @@ with os.scandir(source) as items:
 
             print(f"The file {file_name} was copied to the replica folder")
 
-print(f"SRC: {calculate_md5(source)} - REPLICA: {calculate_md5(replica)}")
 # Loop through the files in replica folder
-## if there are any redundant files remove them
-### log this operation into the logfile and to the console
+with os.scandir(replica) as items:
+    for item in items:
+        file_name = item.name
+        source_path = os.path.join(source, file_name)
+        replica_path = os.path.join(replica, file_name)
+
+        # remove any redundant files/folders in the replica folder
+        # log this operation into the logfile and to the console
+        if not os.path.exists(source_path):
+            if os.path.isfile(replica_path):
+                print(f"file {file_name} deleted from replica")
+                os.remove(replica_path)
+            elif os.path.isdir(replica_path):
+                print(f"folder {file_name} deleted from replica")
+                shutil.rmtree(replica_path)
+
+print(f"SRC: {calculate_md5(source)} - REPLICA: {calculate_md5(replica)}")
+
 
 # schedule periodic synchronization
