@@ -65,7 +65,7 @@ python sync_folders.py source_folder replica_folder log_folder interval_in_secon
 #### Example:
 
 ```bash
-python sync_folders.py /path/to/source /path/to/replica /path/to/logs 60
+python sync_folders.py C:\path\to\source C:\path\to\replica C:\path\to\log 30
 ```
 
 #### Configuration
